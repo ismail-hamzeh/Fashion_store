@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_3"
+    tools:context=".Search_Screen">
+
+    <ImageView
+        android:id="@+id/back_search"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/left_arrow" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/back_search"
+        android:text="Search"
+        android:textColor="@color/light_blue"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/noItem_search_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/search2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Item not found"
+            android:textColor="@color/gray_1"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Try searching the item with\na different keyword"
+            android:textColor="@color/light_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/back_search"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/gray_2"
+        android:elevation="5dp"
+        android:iconifiedByDefault="false"
+        android:inputType="text"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:paddingVertical="4dp"
+        android:paddingStart="-10dp"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="search"
+        android:searchIcon="@drawable/search2"
+        android:theme="@style/SearchViewStyle" />
+
+    <LinearLayout
+        android:id="@+id/num_result_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Found"
+            android:textColor="@color/light_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/result_num_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="0"
+            android:textColor="@color/light_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="result"
+            android:textColor="@color/light_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/grid_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/num_result_linear"
+        android:layout_marginTop="30dp"
+        android:numColumns="2"
+        tools:listitem="@layout/fashion_items" />
+</RelativeLayout>

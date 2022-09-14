@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/drawable/bell2.xml" value="0.143" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/drawable/bellb.xml" value="0.143" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/drawable/dots_line.xml" value="0.1145" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/drawable/tab_indicator.xml" value="0.136" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_all_screen.xml" value="0.17753623188405798" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_cart_screen.xml" value="0.19655797101449277" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_check_out_completed_screen.xml" value="0.19293478260869565" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_check_out_faild_screen.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_check_out_screen.xml" value="0.19293478260869565" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_forget_password_email.xml" value="0.17291666666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_item_details_screen.xml" value="0.19655797101449277" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_kids_screen.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_login_sign_up_contanier.xml" value="0.17889492753623187" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_login_sign_up_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_men_screen.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_notifications_counter.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_orders_screen.xml" value="0.22" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_profile_screen.xml" value="0.19655797101449277" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_profile_screen2.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_search_screen.xml" value="0.22" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_splash_screen.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/activity_women_screen.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/cart_items.xml" value="0.25" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fashion_items.xml" value="0.22" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_all_tab.xml" value="0.17753623188405798" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_check_out__completed__screen.xml" value="0.22" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_check_out__delivery__screen.xml" value="0.22" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_check_out__faild__screen.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_check_out__failed__screen.xml" value="0.19655797101449277" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_check_out_completed_screen.xml" value="0.1453804347826087" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_check_out_payment__screen.xml" value="0.25" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_forget__paass__code__screen.xml" value="0.15217391304347827" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_forget__pass__code.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_forget__pass__code__screen.xml" value="0.19067028985507245" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_forget__pass__email.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_forget__pass__email_screen.xml" value="0.1671195652173913" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_forget__pass__re_password_screen.xml" value="0.16394927536231885" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_forget__password__email.xml" value="0.17889492753623187" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_home__screen.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_kids__screen.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_kids__tab.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_login__screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_men__screen.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_men__tab.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_orders__screen.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_payment__screen.xml" value="0.22" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_profile__screen.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_sign_up__screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_women__screen.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/fragment_women__tab.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/notification_counter.xml" value="0.1675213675213675" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/notification_item.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/notifications_dialge.xml" value="0.1859375" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/notifications_dialog.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/orders_items.xml" value="0.2" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/layout/viewpager_category_items.xml" value="0.1875" />
+        <entry key="..\:/Users/ismae/AndroidStudioProjects/Task15/app/src/main/res/menu/navigation_bottom.xml" value="0.1675213675213675" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

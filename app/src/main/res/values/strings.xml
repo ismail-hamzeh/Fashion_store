@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Fashion store</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_forget">in order to get your account back, we will send a verification code to your email.</string>
+    <string name="description">From functional and stylish trench\n
+coats to weather-ready parkas,\n
+smart blazers and chic kimonos,\n
+we’ve got every outerwear style you\n
+could need this season in our new\n
+online collection. Find the right\n
+wardrobe option to suit any occasion\n
+and master the art of layering in\n
+style. Invest in a quality, classic piece\n
+that you will want to wear year\n
+after year.
+</string>
+</resources>

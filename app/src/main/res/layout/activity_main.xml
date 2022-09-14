@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_3"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/list" />
+
+    <ImageView
+        android:id="@+id/cart_home"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/shopping_cart" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cart_home"
+        android:layout_marginStart="20dp"
+        android:text="SHOP FOR EVERY ONE"
+        android:textColor="@color/light_blue"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/search_home"-->
+    <!--        android:layout_width="250dp"-->
+    <!--        android:layout_height="30dp"-->
+    <!--        android:layout_below="@id/text"-->
+    <!--        android:layout_marginHorizontal="20dp"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:background="@color/gray_2"-->
+    <!--        android:elevation="5dp"-->
+    <!--        android:iconifiedByDefault="false"-->
+    <!--        android:outlineSpotShadowColor="@android:color/transparent"-->
+    <!--        android:queryBackground="@android:color/transparent"-->
+    <!--        android:queryHint="search"-->
+    <!--        android:searchIcon="@drawable/search"-->
+    <!--        android:theme="@style/SearchViewStyle" />-->
+
+    <LinearLayout
+        android:id="@+id/search_linear"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/text"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/gray_2"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="10dp"
+            android:src="@drawable/search2" />
+
+        <TextView
+            android:id="@+id/search_txt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Search"
+            android:textColor="@color/pink" />
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_linear"
+        android:layout_marginTop="30dp"
+        android:background="@color/gray_3"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicatorColor="@color/pink"
+        app:tabSelectedTextColor="@color/pink"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/light_blue" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager_home"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tabLayout_home" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewPager_home"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="See More"
+        android:textColor="@color/light_blue"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/see_more"
+        android:layout_width="40dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/text2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/right_arrow" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_3"
+        android:outlineProvider="none"
+        app:menu="@menu/navigation_bottom" />
+
+</RelativeLayout>
