@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.Fashion_Store.Adapters.Notification_Item_Adapter;
 import com.example.Fashion_Store.Models.Notification_Item_Model;
+import com.example.Fashion_Store.databinding.ActivityProfileScreenBinding;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,11 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile_Screen extends AppCompatActivity {
 
-    private TextView change_pic,notify_count_profile;
-    private ImageView back_profile, notification_profile;
-    private CircleImageView profile_pic;
-    private EditText name_profile, email_profile, password_profile, number_profile, address_profile;
-    private Button save_profile, logout;
+    private ActivityProfileScreenBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -63,69 +60,32 @@ public class Profile_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_screen);
+        binding = ActivityProfileScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        back_profile = findViewById(R.id.back_profile);
-        notification_profile = findViewById(R.id.notification_profile);
-        profile_pic = findViewById(R.id.profile_pic);
-        change_pic = findViewById(R.id.change_pic);
-        notify_count_profile = findViewById(R.id.notify_count_profile);
-        name_profile = findViewById(R.id.name_profile);
-        email_profile = findViewById(R.id.email_profile);
-        password_profile = findViewById(R.id.password_profile);
-        number_profile = findViewById(R.id.number_profile);
-        address_profile = findViewById(R.id.address_profile);
-        save_profile = findViewById(R.id.save_profile);
-        logout = findViewById(R.id.logout_profile);
         mAuth = FirebaseAuth.getInstance();
 
         readUserData();
         setNotificationsCountInBadge();
 
-        back_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener((View.OnClickListener) view -> onBackPressed());
 
-        notification_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                show_notifications_dialog();
+        binding.notificationImg.setOnClickListener((View.OnClickListener) view -> show_notifications_dialog());
 
+        binding.changePicTxt.setOnClickListener((View.OnClickListener) view -> ImagePicker.with(Profile_Screen.this)
+                .crop()//Crop image(Optional), Check Customization for more option
+                .cropSquare()
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .start());
 
-            }
-        });
+        binding.saveBtn.setOnClickListener((View.OnClickListener) view -> updateData());
 
-        change_pic.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                ImagePicker.with(Profile_Screen.this)
-                        .crop()//Crop image(Optional), Check Customization for more option
-                        .cropSquare()
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-                        .start();
-            }
-        });
-
-        save_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateData();
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteCartData();
-                startActivity(new Intent(Profile_Screen.this, Login_SignUp_Container.class));
-                finish();
-                mAuth.signOut();
-            }
+        binding.logoutBtn.setOnClickListener((View.OnClickListener) view -> {
+            deleteCartData();
+            startActivity(new Intent(Profile_Screen.this, Login_SignUp_Container.class));
+            finish();
+            mAuth.signOut();
         });
     }
 
@@ -134,7 +94,7 @@ public class Profile_Screen extends AppCompatActivity {
         super.onActivityResult(requestCode & 0xffff, resultCode, data);
 
         uri = data.getData();
-        profile_pic.setImageURI(uri);
+        binding.profilePicImg.setImageURI(uri);
 
     }
 
@@ -150,13 +110,13 @@ public class Profile_Screen extends AppCompatActivity {
                     DocumentSnapshot snapshot = task.getResult();
 
                     if (!Objects.equals(snapshot.getString("profile pic"), "")) {
-                        profile_pic.setImageURI(Uri.parse(snapshot.getString("profile pic")));
+                        binding.profilePicImg.setImageURI(Uri.parse(snapshot.getString("profile pic")));
                     }
-                    name_profile.setText(snapshot.getString("name"));
-                    email_profile.setText(snapshot.getString("email"));
-                    password_profile.setText(snapshot.getString("password"));
-                    number_profile.setText(snapshot.getString("number"));
-                    address_profile.setText(snapshot.getString("address"));
+                    binding.nameEdt.setText(snapshot.getString("name"));
+                    binding.emailEdt.setText(snapshot.getString("email"));
+                    binding.passwordEdt.setText(snapshot.getString("password"));
+                    binding.numberEdt.setText(snapshot.getString("number"));
+                    binding.addressEdt.setText(snapshot.getString("address"));
                 }
 
             }
@@ -171,11 +131,11 @@ public class Profile_Screen extends AppCompatActivity {
         if (uri != null) {
             user.put("profile pic", uri);
         }
-        user.put("name", name_profile.getText().toString());
-        user.put("email", email_profile.getText().toString());
-        user.put("password", password_profile.getText().toString());
-        user.put("number", number_profile.getText().toString());
-        user.put("address", address_profile.getText().toString());
+        user.put("name", binding.nameEdt.getText().toString());
+        user.put("email", binding.emailEdt.getText().toString());
+        user.put("password", binding.passwordEdt.getText().toString());
+        user.put("number", binding.numberEdt.getText().toString());
+        user.put("address", binding.addressEdt.getText().toString());
 
         db.collection("Users").document(userID).update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -247,10 +207,10 @@ public class Profile_Screen extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 notify_countDB = queryDocumentSnapshots.size();
-                notify_count_profile.setText(String.valueOf(notify_countDB));
+                binding.notifyCountTxt.setText(String.valueOf(notify_countDB));
 
                 if (notify_countDB == 0){
-                    notify_count_profile.setVisibility(View.INVISIBLE);
+                    binding.notifyCountTxt.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -281,8 +241,8 @@ public class Profile_Screen extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()){
-                                String email = email_profile.getText().toString();
-                                String password = password_profile.getText().toString();
+                                String email = binding.emailEdt.getText().toString();
+                                String password = binding.passwordEdt.getText().toString();
 
                                 user.updateEmail(email);
                                 user.updatePassword(password);

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.Fashion_Store.Adapters.ViewPager_Category_Adapter;
 import com.example.Fashion_Store.Models.ViewPager_Category_Model;
+import com.example.Fashion_Store.databinding.ActivityItemDetailsScreenBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +29,7 @@ import java.util.Map;
 
 public class Item_Details_Screen extends AppCompatActivity {
 
-    private ImageView back_details, cart_details, item_plus, item_minus;
-    private TextView page_title, item_name, item_price, item_num;
+    private ActivityItemDetailsScreenBinding binding;
     private Button buyNow_btn, addToCart_btn;
     private ViewPager img_viewPager;
     private LinearLayout indicator_linear;
@@ -42,16 +42,9 @@ public class Item_Details_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_details_screen);
+        binding = ActivityItemDetailsScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        back_details = findViewById(R.id.back_details);
-        cart_details = findViewById(R.id.cart_details);
-        item_plus = findViewById(R.id.item_plus_details);
-        item_minus = findViewById(R.id.item_minus_details);
-        page_title = findViewById(R.id.page_title);
-        item_name = findViewById(R.id.item_name_details);
-        item_price = findViewById(R.id.item_price_details);
-        item_num = findViewById(R.id.item_num_details);
         buyNow_btn = findViewById(R.id.buyNow_details);
         addToCart_btn = findViewById(R.id.addToCart_btn);
         img_viewPager = findViewById(R.id.img_viewPager_details);
@@ -65,14 +58,9 @@ public class Item_Details_Screen extends AppCompatActivity {
         setUpIndicator(0);
 
         img_viewPager.addOnPageChangeListener(viewListener);
-        page_title.setText(getIntent().getExtras().getString("page title"));
+        binding.pageTitleTxt.setText(getIntent().getExtras().getString("page title"));
 
-        back_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener(view -> onBackPressed());
 
         SharedPreferences sharedPreferences = getSharedPreferences("buyNowOrCart",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -80,7 +68,7 @@ public class Item_Details_Screen extends AppCompatActivity {
         buyNow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(item_num.getText().toString()) > 0){
+                if (Integer.parseInt(binding.itemNumTxt.getText().toString()) > 0){
                     editor.putBoolean("buyNow",true).commit();
                     orderData();
                     startActivity(new Intent(Item_Details_Screen.this, CheckOut_Screen.class));
@@ -90,36 +78,22 @@ public class Item_Details_Screen extends AppCompatActivity {
             }
         });
 
-        cart_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Item_Details_Screen.this,Cart_Screen.class));
-            }
-        });
+        binding.cartImg.setOnClickListener((View.OnClickListener) view -> startActivity(new Intent(Item_Details_Screen.this,Cart_Screen.class)));
 
         final int[] num = {getIntent().getExtras().getInt("item num")};
 
-        item_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.itemPlusImg.setOnClickListener((View.OnClickListener) view -> binding.itemNumTxt.setText(String.valueOf(num[0]++)));
 
-                item_num.setText(String.valueOf(num[0]++));
-            }
-        });
-
-        item_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (num[0] > 0) {
-                    item_num.setText(String.valueOf(--num[0]));
-                }
+        binding.itemMinusImg.setOnClickListener((View.OnClickListener) view -> {
+            if (num[0] > 0) {
+                binding.itemNumTxt.setText(String.valueOf(--num[0]));
             }
         });
 
         addToCart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(item_num.getText().toString()) > 0) {
+                if (Integer.parseInt(binding.itemNumTxt.getText().toString()) > 0) {
                     addItemToCart();
                 } else {
                     Toast.makeText(Item_Details_Screen.this, "Please Add Item", Toast.LENGTH_SHORT).show();
@@ -131,9 +105,9 @@ public class Item_Details_Screen extends AppCompatActivity {
     }
 
     public void getItemData(){
-        item_name.setText(getIntent().getExtras().getString("item name"));
-        item_price.setText(getIntent().getExtras().getString("item price"));
-        item_num.setText(String.valueOf(getIntent().getExtras().getInt("item num")));
+        binding.itemNameTxt.setText(getIntent().getExtras().getString("item name"));
+        binding.itemPriceTxt.setText(getIntent().getExtras().getString("item price"));
+        binding.itemNumTxt.setText(String.valueOf(getIntent().getExtras().getInt("item num")));
     }
 
     public void getImgViewPagerData(){
@@ -194,7 +168,7 @@ public class Item_Details_Screen extends AppCompatActivity {
         String imageCart =  getIntent().getExtras().getString("item img");
         String nameCart = getIntent().getExtras().getString("item name");
         String priceCart = getIntent().getExtras().getString("item price");
-        String numCart = item_num.getText().toString();
+        String numCart = binding.itemNumTxt.getText().toString();
 
         Map<String, Object> cartItem = new HashMap<>();
         cartItem.put("item img", imageCart);
@@ -216,10 +190,10 @@ public class Item_Details_Screen extends AppCompatActivity {
     public void orderData(){
         SharedPreferences sharedPreferences = getSharedPreferences("orderDetails",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("item price", item_price.getText().toString());
-        editor.putInt("product num", Integer.parseInt(String.valueOf(item_num.getText())));
+        editor.putString("item price", binding.itemPriceTxt.getText().toString());
+        editor.putInt("product num", Integer.parseInt(String.valueOf(binding.itemNumTxt.getText())));
 
-        int total_price = Integer.parseInt(item_price.getText().toString()) * Integer.parseInt(String.valueOf(item_num.getText()));
+        int total_price = Integer.parseInt(binding.itemPriceTxt.getText().toString()) * Integer.parseInt(String.valueOf(binding.itemNumTxt.getText()));
 
         editor.putString("total price", String.valueOf(total_price));
         editor.commit();

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.Fashion_Store.Models.Notification_Item_Model;
+import com.example.Fashion_Store.databinding.FragmentSignUpScreenBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,72 +28,61 @@ import java.util.Map;
 
 public class SignUp_Screen extends Fragment {
 
-  public static SignUp_Screen getInstance(){
-      SignUp_Screen signUp_screen = new SignUp_Screen();
-      return signUp_screen;
-  }
+    public static SignUp_Screen getInstance() {
+        SignUp_Screen signUp_screen = new SignUp_Screen();
+        return signUp_screen;
+    }
 
-  private EditText name_signup, email_signup, password_signup, rePassword_signup;
-  private Button signup_btn;
-  private FirebaseAuth mAuth;
-  private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FragmentSignUpScreenBinding binding;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_sign_up__screen, container, false);
+        binding = FragmentSignUpScreenBinding.inflate(getLayoutInflater(), container, false);
 
-        name_signup = view.findViewById(R.id.name_signup);
-        email_signup = view.findViewById(R.id.email_signup);
-        password_signup = view.findViewById(R.id.password_signup);
-        rePassword_signup = view.findViewById(R.id.re_password_signup);
-        signup_btn = view.findViewById(R.id.signup_btn);
         mAuth = FirebaseAuth.getInstance();
 
 
-        signup_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signupUser();
-            }
-        });
+        binding.signupBtn.setOnClickListener((View.OnClickListener) view -> signupUser());
 
 
-        return view;
+        return binding.getRoot();
     }
 
     private void signupUser() {
 
-        String name = name_signup.getText().toString();
-        String email = email_signup.getText().toString();
-        String password = password_signup.getText().toString();
-        String rePassword = rePassword_signup.getText().toString();
+        String name = binding.nameEdt.getText().toString();
+        String email = binding.emailEdt.getText().toString();
+        String password = binding.passwordEdt.getText().toString();
+        String rePassword = binding.rePasswordEdt.getText().toString();
 
-        if (name.isEmpty()){
-            name_signup.setError("Required");
-        } else if (email.isEmpty()){
-            email_signup.setError("Required");
-        } else if (password.isEmpty()){
-            password_signup.setError("Required");
-        } else if (password.length() <8){
-            password_signup.setError("At least 8 character");
-        } else if (rePassword.isEmpty()){
-            rePassword_signup.setError("Required");
-        } else if (!password.equals(rePassword)){
-            rePassword_signup.setError("Password doesn't match");
+        if (name.isEmpty()) {
+            binding.nameEdt.setError("Required");
+        } else if (email.isEmpty()) {
+            binding.emailEdt.setError("Required");
+        } else if (password.isEmpty()) {
+            binding.passwordEdt.setError("Required");
+        } else if (password.length() < 8) {
+            binding.passwordEdt.setError("At least 8 character");
+        } else if (rePassword.isEmpty()) {
+            binding.rePasswordEdt.setError("Required");
+        } else if (!password.equals(rePassword)) {
+            binding.rePasswordEdt.setError("Password doesn't match");
         } else {
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         setNotification();
 
                         String userID = mAuth.getCurrentUser().getUid();
 
-                        Map<String , Object> user = new HashMap<>();
+                        Map<String, Object> user = new HashMap<>();
                         user.put("name", name);
                         user.put("email", email);
                         user.put("password", password);
@@ -107,7 +97,7 @@ public class SignUp_Screen extends Fragment {
                             }
                         });
                     } else {
-                        Toast.makeText(getActivity(),"Error!! "+task.getException(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Error!! " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -115,14 +105,14 @@ public class SignUp_Screen extends Fragment {
         }
     }
 
-    public void setNotification(){
+    public void setNotification() {
         String userID = mAuth.getCurrentUser().getUid();
-        String id =   db.collection("Users").document(userID).collection("Notifications").document().getId();
+        String id = db.collection("Users").document(userID).collection("Notifications").document().getId();
 
         Notification_Item_Model notificationItemModel = new Notification_Item_Model();
         notificationItemModel.setId(id);
 
-        Map<String,Object> notify = new HashMap<>();
+        Map<String, Object> notify = new HashMap<>();
         notify.put("notify", "Welcome!, We hope you find what you're looking for and that you enjoy your stay.");
         db.collection("Users").document(userID).collection("Notifications").document(id).set(notify);
     }

@@ -8,7 +8,7 @@
     tools:context=".Cart_Screen">
 
     <ImageView
-        android:id="@+id/back_cart"
+        android:id="@+id/back_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_toEndOf="@id/back_cart"
+        android:layout_toEndOf="@id/back_img"
         android:text="Cart"
         android:textColor="@color/light_blue"
         android:textStyle="bold" />
@@ -61,7 +61,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/order_now_cart"
+        android:id="@+id/order_now_btn"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -73,7 +73,7 @@
         android:visibility="gone" />
 
     <Button
-        android:id="@+id/checkOut_cart"
+        android:id="@+id/checkOut_btn"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -85,10 +85,10 @@
         android:visibility="gone" />
 
     <GridView
-        android:id="@+id/cart_item_grid"
+        android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/back_cart"
+        android:layout_below="@id/back_img"
         android:layout_marginTop="30dp"
         android:numColumns="2"
         tools:listitem="@layout/cart_items" />

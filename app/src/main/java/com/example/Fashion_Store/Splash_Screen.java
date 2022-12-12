@@ -7,23 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.Fashion_Store.databinding.ActivitySplashScreenBinding;
+
 public class Splash_Screen extends AppCompatActivity {
 
-    private Button started_btn;
+    private ActivitySplashScreenBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        started_btn = findViewById(R.id.started_btn);
-        started_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Splash_Screen.this, Login_SignUp_Container.class));
-                finish();
+        binding.startedBtn.setOnClickListener((View.OnClickListener) view -> {
+            startActivity(new Intent(Splash_Screen.this, Login_SignUp_Container.class));
+            finish();
 
-            }
         });
     }
 }

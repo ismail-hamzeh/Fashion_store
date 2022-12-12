@@ -16,7 +16,7 @@
 
 
         <EditText
-            android:id="@+id/email_login"
+            android:id="@+id/email_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -25,7 +25,7 @@
             android:textColorHint="@color/pink" />
 
         <EditText
-            android:id="@+id/password_login"
+            android:id="@+id/password_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -35,7 +35,7 @@
 
 
         <TextView
-            android:id="@+id/forget_pass"
+            android:id="@+id/forget_pass_txt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"

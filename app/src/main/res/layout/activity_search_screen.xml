@@ -8,7 +8,7 @@
     tools:context=".Search_Screen">
 
     <ImageView
-        android:id="@+id/back_search"
+        android:id="@+id/back_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_toEndOf="@id/back_search"
+        android:layout_toEndOf="@id/back_img"
         android:text="Search"
         android:textColor="@color/light_blue"
         android:textStyle="bold" />
@@ -62,10 +62,10 @@
 
 
     <SearchView
-        android:id="@+id/search"
+        android:id="@+id/searchView"
         android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_below="@id/back_search"
+        android:layout_below="@id/back_img"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="30dp"
         android:background="@color/gray_2"
@@ -84,7 +84,7 @@
         android:id="@+id/num_result_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search"
+        android:layout_below="@id/searchView"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -99,7 +99,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/result_num_search"
+            android:id="@+id/result_num_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -119,7 +119,7 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/grid_search"
+        android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/num_result_linear"

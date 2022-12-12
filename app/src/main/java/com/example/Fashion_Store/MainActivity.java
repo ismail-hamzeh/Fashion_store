@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.example.Fashion_Store.Adapters.Notification_Item_Adapter;
 import com.example.Fashion_Store.Adapters.ViewPager_Adapter;
 import com.example.Fashion_Store.Models.Notification_Item_Model;
+import com.example.Fashion_Store.databinding.ActivityMainBinding;
 import com.example.Fashion_Store.home_category_tabs.All_tab;
 import com.example.Fashion_Store.home_category_tabs.Kids_Tab;
 import com.example.Fashion_Store.home_category_tabs.Men_Tab;
@@ -51,11 +52,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private BottomNavigationView navigationView;
-    private TabLayout tabLayout_home;
-    private ViewPager viewPager_home;
-    private ImageView see_more_arrow, cart_home;
-    private TextView search_txt;
+    private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     int notify_countDB ;
@@ -68,40 +65,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        navigationView = findViewById(R.id.navigation_bottom);
-
-        navigationView.setOnNavigationItemSelectedListener(this);
-        navigationView.setItemIconTintList(null);
-
-        tabLayout_home = findViewById(R.id.tabLayout_home);
-        viewPager_home = findViewById(R.id.viewPager_home);
-        see_more_arrow = findViewById(R.id.see_more);
-        cart_home = findViewById(R.id.cart_home);
-        search_txt = findViewById(R.id.search_txt);
         mAuth = FirebaseAuth.getInstance();
+
+        binding.navigationBottom.setOnNavigationItemSelectedListener(this);
+        binding.navigationBottom.setItemIconTintList(null);
 
         get_category_Tabs();
         setNotificationsCountInBadge();
 
-        search_txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, Search_Screen.class));
-            }
-        });
+        binding.searchTxt.setOnClickListener((View.OnClickListener) view -> startActivity(new Intent(MainActivity.this, Search_Screen.class)));
 
-        see_more_arrow.setOnClickListener(new View.OnClickListener() {
+        binding.seeMoreArrowImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (viewPager_home.getCurrentItem() == 0){
+                if (binding.viewPager.getCurrentItem() == 0){
                     startActivity(new Intent(MainActivity.this, Women_Screen.class));
 
-                } else if (viewPager_home.getCurrentItem() == 1){
+                } else if (binding.viewPager.getCurrentItem() == 1){
                     startActivity(new Intent(MainActivity.this, Men_Screen.class));
 
-                } else if (viewPager_home.getCurrentItem() == 2){
+                } else if (binding.viewPager.getCurrentItem() == 2){
                     startActivity(new Intent(MainActivity.this, Kids_Screen.class));
 
                 } else {
@@ -110,12 +96,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
 
-        cart_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Cart_Screen.class));
-            }
-        });
+        binding.cartImg.setOnClickListener((View.OnClickListener) view -> startActivity(new Intent(MainActivity.this,Cart_Screen.class)));
 
     }
 
@@ -206,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         viewPager_adapter.addFragment(Kids_Tab.getInstance(),"Kids");
         viewPager_adapter.addFragment(All_tab.getInstance(),"All");
 
-        viewPager_home.setAdapter(viewPager_adapter);
-        tabLayout_home.setupWithViewPager(viewPager_home);
+        binding.viewPager.setAdapter(viewPager_adapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
 
 
     }
@@ -245,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 notify_countDB = queryDocumentSnapshots.size();
-                showBadge(MainActivity.this,navigationView,R.id.nav_notification,notify_countDB);
+                showBadge(MainActivity.this, binding.navigationBottom, R.id.nav_notification, notify_countDB);
 
             }
         });

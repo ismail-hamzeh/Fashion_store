@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.Fashion_Store.databinding.FragmentForgetPassRePasswordScreenBinding;
+
 
 public class Forget_Pass_RePassword_Screen extends Fragment {
 
@@ -17,24 +19,17 @@ public class Forget_Pass_RePassword_Screen extends Fragment {
         return forget_pass_rePasswordScreen;
     }
 
-    private Button change_pass;
+    private FragmentForgetPassRePasswordScreenBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_forget__pass__re_password_screen, container, false);
+        binding = FragmentForgetPassRePasswordScreenBinding.inflate(getLayoutInflater(), container, false);
 
-        change_pass = view.findViewById(R.id.change_pass_btn);
-
-        change_pass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((Login_SignUp_Container)getActivity()).get_Login_Signup_Tabs();
-            }
-        });
+        binding.changePassBtn.setOnClickListener((View.OnClickListener) view -> ((Login_SignUp_Container)getActivity()).get_Login_Signup_Tabs());
 
 
-        return view;
+        return binding.getRoot();
     }
 }

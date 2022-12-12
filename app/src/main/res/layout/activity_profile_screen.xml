@@ -8,7 +8,7 @@
     tools:context=".Profile_Screen">
 
     <ImageView
-        android:id="@+id/back_profile"
+        android:id="@+id/back_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_toEndOf="@id/back_profile"
+        android:layout_toEndOf="@id/back_img"
         android:text="Profile"
         android:textColor="@color/light_blue"
         android:textStyle="bold" />
@@ -32,7 +32,7 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/notification_profile"
+            android:id="@+id/notification_img"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
@@ -42,7 +42,7 @@
             android:src="@drawable/bell" />
 
         <TextView
-            android:id="@+id/notify_count_profile"
+            android:id="@+id/notify_count_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -56,7 +56,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_pic"
+        android:id="@+id/profile_pic_img"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
@@ -64,10 +64,10 @@
         android:src="@drawable/user" />
 
     <TextView
-        android:id="@+id/change_pic"
+        android:id="@+id/change_pic_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_pic"
+        android:layout_below="@id/profile_pic_img"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:text="change"
@@ -76,14 +76,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/change_pic"
+        android:layout_below="@+id/change_pic_txt"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="20dp"
         android:orientation="vertical">
 
 
         <EditText
-            android:id="@+id/name_profile"
+            android:id="@+id/name_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
@@ -93,7 +93,7 @@
 
 
         <EditText
-            android:id="@+id/email_profile"
+            android:id="@+id/email_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -104,7 +104,7 @@
 
 
         <EditText
-            android:id="@+id/password_profile"
+            android:id="@+id/password_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -114,7 +114,7 @@
             android:textColorHint="@color/pink" />
 
         <EditText
-            android:id="@+id/number_profile"
+            android:id="@+id/number_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
@@ -124,7 +124,7 @@
             android:textColorHint="@color/pink" />
 
         <EditText
-            android:id="@+id/address_profile"
+            android:id="@+id/address_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
@@ -134,18 +134,19 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/save_profile"
+        android:id="@+id/save_btn"
         android:layout_width="110dp"
         android:layout_height="45dp"
-        android:layout_above="@+id/logout_profile"
+        android:layout_above="@+id/logout_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/pink"
         android:text="Save"
         android:textColor="@color/white" />
 
+
     <Button
-        android:id="@+id/logout_profile"
+        android:id="@+id/logout_btn"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
@@ -154,5 +155,4 @@
         android:backgroundTint="@color/pink"
         android:text="Logout"
         android:textColor="@color/white" />
-
 </RelativeLayout>

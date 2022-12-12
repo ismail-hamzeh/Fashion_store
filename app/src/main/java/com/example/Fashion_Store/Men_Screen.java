@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.Fashion_Store.Adapters.Items_Grid_Adapter;
 import com.example.Fashion_Store.Models.Items_Model;
+import com.example.Fashion_Store.databinding.ActivityMenScreenBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,8 +22,7 @@ import java.util.ArrayList;
 
 public class Men_Screen extends AppCompatActivity {
 
-    private ImageView back_men, cart_men;
-    private GridView gridView;
+    private ActivityMenScreenBinding binding;
     private Items_Grid_Adapter items_grid_adapter;
     ArrayList<Items_Model> items_models = new ArrayList<>();
     private DatabaseReference reference;
@@ -30,28 +30,16 @@ public class Men_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_men_screen);
+        binding = ActivityMenScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        back_men = findViewById(R.id.back_men);
-        cart_men = findViewById(R.id.cart_men);
-        gridView = findViewById(R.id.grid_men);
         reference = FirebaseDatabase.getInstance().getReference();
 
         getItemsFromDB();
 
-        back_men.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener((View.OnClickListener) view -> onBackPressed());
 
-        cart_men.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Men_Screen.this, Cart_Screen.class));
-            }
-        });
+        binding.cartImg.setOnClickListener((View.OnClickListener) view -> startActivity(new Intent(Men_Screen.this, Cart_Screen.class)));
 
 
     }
@@ -76,7 +64,7 @@ public class Men_Screen extends AppCompatActivity {
                 }
                 items_models = new ArrayList<>(items_models);
                 items_grid_adapter = new Items_Grid_Adapter(Men_Screen.this,items_models);
-                gridView.setAdapter(items_grid_adapter);
+                binding.gridView.setAdapter(items_grid_adapter);
 
             }
 

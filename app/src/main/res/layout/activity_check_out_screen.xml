@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/back_checkOut"
+        android:id="@+id/back_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_toEndOf="@id/back_checkOut"
+        android:layout_toEndOf="@id/back_img"
         android:text="Check out"
         android:textColor="@color/light_blue"
         android:textStyle="bold" />
@@ -30,5 +30,5 @@
         android:id="@+id/container_checkOut"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/back_checkOut" />
+        android:layout_below="@+id/back_img" />
 </RelativeLayout>

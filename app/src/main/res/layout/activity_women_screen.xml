@@ -8,7 +8,7 @@
     tools:context=".Women_Screen">
 
     <ImageView
-        android:id="@+id/back_women"
+        android:id="@+id/back_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
@@ -20,13 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_toEndOf="@id/back_women"
+        android:layout_toEndOf="@id/back_img"
         android:text="Women"
         android:textColor="@color/light_blue"
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/cart_women"
+        android:id="@+id/cart_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -36,10 +36,10 @@
 
 
     <GridView
-        android:id="@+id/grid_women"
+        android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/back_women"
+        android:layout_below="@id/back_img"
         android:numColumns="2" />
 
 </RelativeLayout>

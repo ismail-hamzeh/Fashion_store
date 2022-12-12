@@ -21,6 +21,7 @@ import com.example.Fashion_Store.Adapters.Notification_Item_Adapter;
 import com.example.Fashion_Store.Adapters.Order_Item_Adapter;
 import com.example.Fashion_Store.Models.Notification_Item_Model;
 import com.example.Fashion_Store.Models.Order_Item_Model;
+import com.example.Fashion_Store.databinding.ActivityOrdersScreenBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,11 +37,7 @@ import java.util.ArrayList;
 
 public class Orders_Screen extends AppCompatActivity {
 
-    private ImageView back_orders, notification_orders;
-    private TextView notify_count_orders;
-    private Button order_now;
-    private LinearLayout noOrders_linear;
-    private RecyclerView order_Rec;
+    private ActivityOrdersScreenBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
@@ -50,46 +47,25 @@ public class Orders_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityOrdersScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        setContentView(R.layout.activity_orders_screen);
-
-        back_orders = findViewById(R.id.back_orders);
-        notification_orders = findViewById(R.id.notification_orders);
-        notify_count_orders = findViewById(R.id.notify_count_orders);
-        order_now = findViewById(R.id.order_now_orders);
-        noOrders_linear = findViewById(R.id.noOrders_linear);
-        order_Rec = findViewById(R.id.orders_Rec);
         mAuth = FirebaseAuth.getInstance();
 
         getOrderData();
         setNotificationsCountInBadge();
         clearAll();
 
-        order_Rec.setHasFixedSize(true);
-        order_Rec.setLayoutManager(new LinearLayoutManager(this));
+        binding.ordersRec.setHasFixedSize(true);
+        binding.ordersRec.setLayoutManager(new LinearLayoutManager(this));
         orderItemModels = new ArrayList<>();
 
 
-        back_orders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener((View.OnClickListener) view -> onBackPressed());
 
-        notification_orders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                show_notifications_dialog();
-            }
-        });
+        binding.notificationImg.setOnClickListener((View.OnClickListener) view -> show_notifications_dialog());
 
-        order_now.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Orders_Screen.this, MainActivity.class));
-            }
-        });
+        binding.orderNowBtn.setOnClickListener((View.OnClickListener) view -> startActivity(new Intent(Orders_Screen.this, MainActivity.class)));
     }
     public void getOrderData(){
 
@@ -115,13 +91,13 @@ public class Orders_Screen extends AppCompatActivity {
                     orderItemModels.add(order_item_model);
                 }
                 Order_Item_Adapter orderItemAdapter = new Order_Item_Adapter(orderItemModels,Orders_Screen.this);
-                order_Rec.setAdapter(orderItemAdapter);
+                binding.ordersRec.setAdapter(orderItemAdapter);
                 orderItemAdapter.notifyDataSetChanged();
 
                 if (orderItemAdapter.getItemCount() == 0){
-                    noOrders_linear.setVisibility(View.VISIBLE);
-                    order_now.setVisibility(View.VISIBLE);
-                    order_Rec.setVisibility(View.INVISIBLE);
+                    binding.noOrdersLinear.setVisibility(View.VISIBLE);
+                    binding.orderNowBtn.setVisibility(View.VISIBLE);
+                    binding.ordersRec.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -191,10 +167,10 @@ public class Orders_Screen extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 notify_countDB = queryDocumentSnapshots.size();
-                notify_count_orders.setText(String.valueOf(notify_countDB));
+                binding.notifyCountTxt.setText(String.valueOf(notify_countDB));
 
                 if (notify_countDB == 0){
-                    notify_count_orders.setVisibility(View.INVISIBLE);
+                    binding.notifyCountTxt.setVisibility(View.INVISIBLE);
                 }
             }
         });

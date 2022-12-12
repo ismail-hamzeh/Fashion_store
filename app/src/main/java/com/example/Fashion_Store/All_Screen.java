@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.Fashion_Store.Adapters.Items_Grid_Adapter;
 import com.example.Fashion_Store.Models.Items_Model;
+import com.example.Fashion_Store.databinding.ActivityAllScreenBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,8 +24,8 @@ import java.util.Random;
 
 public class All_Screen extends AppCompatActivity {
 
-    private ImageView back_all, cart_all;
-    private GridView gridView;
+
+    private ActivityAllScreenBinding binding;
     private Items_Grid_Adapter items_grid_adapter;
     ArrayList<Items_Model> items_models = new ArrayList<>();
     private DatabaseReference reference;
@@ -33,28 +34,16 @@ public class All_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_screen);
+        binding = ActivityAllScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        back_all = findViewById(R.id.back_all);
-        cart_all = findViewById(R.id.cart_all);
-        gridView = findViewById(R.id.grid_all);
         reference = FirebaseDatabase.getInstance().getReference();
 
         getItemsFromDB();
 
-        back_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener(view -> onBackPressed());
 
-        cart_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(All_Screen.this, Cart_Screen.class));
-            }
-        });
+        binding.cartImg.setOnClickListener(view -> startActivity(new Intent(All_Screen.this, Cart_Screen.class)));
     }
     public void getItemsFromDB(){
 
@@ -77,7 +66,7 @@ public class All_Screen extends AppCompatActivity {
                 }
                 items_models = new ArrayList<>(items_models);
                 items_grid_adapter = new Items_Grid_Adapter(All_Screen.this,items_models);
-                gridView.setAdapter(items_grid_adapter);
+                binding.gridView.setAdapter(items_grid_adapter);
 
 
             }

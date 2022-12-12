@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.Fashion_Store.Adapters.Cart_Item_Adapter;
 import com.example.Fashion_Store.Models.Cart_Item_Model;
+import com.example.Fashion_Store.databinding.ActivityCartScreenBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,9 +29,7 @@ import java.util.ArrayList;
 
 public class Cart_Screen extends AppCompatActivity {
 
-    private ImageView back_cart;
-    private Button order_now, checkOut_cart;
-    private GridView gridView;
+    private ActivityCartScreenBinding binding;
     ArrayList<Cart_Item_Model> itemCartModels = new ArrayList<>();
     private FirebaseAuth mAuth;
     private DatabaseReference reference;
@@ -39,12 +38,9 @@ public class Cart_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart_screen);
+        binding = ActivityCartScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        back_cart = findViewById(R.id.back_cart);
-        order_now = findViewById(R.id.order_now_cart);
-        checkOut_cart = findViewById(R.id.checkOut_cart);
-        gridView = findViewById(R.id.cart_item_grid);
         noCart = findViewById(R.id.linear_no_cart);
         mAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
@@ -52,35 +48,22 @@ public class Cart_Screen extends AppCompatActivity {
         getCartData();
         clearAll();
 
-        back_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener(view -> onBackPressed());
 
-        order_now.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Cart_Screen.this, MainActivity.class));
-            }
-        });
+        binding.orderNowBtn.setOnClickListener(view -> startActivity(new Intent(Cart_Screen.this, MainActivity.class)));
 
-        SharedPreferences sharedPreferences = getSharedPreferences("buyNowOrCart",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("buyNowOrCart", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        checkOut_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editor.putBoolean("buyNow",false).commit();
-                passMyTotalCartPrice();
-                startActivity(new Intent(Cart_Screen.this, CheckOut_Screen.class));
-            }
+        binding.checkOutBtn.setOnClickListener(view -> {
+            editor.putBoolean("buyNow", false).commit();
+            passMyTotalCartPrice();
+            startActivity(new Intent(Cart_Screen.this, CheckOut_Screen.class));
         });
 
     }
 
-    public void getCartData(){
+    public void getCartData() {
 
         String userID = mAuth.getCurrentUser().getUid();
 
@@ -89,7 +72,7 @@ public class Cart_Screen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 clearAll();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Cart_Item_Model item_cart_model = new Cart_Item_Model();
 
@@ -101,16 +84,16 @@ public class Cart_Screen extends AppCompatActivity {
 
                     itemCartModels.add(item_cart_model);
                 }
-                Cart_Item_Adapter cart_grid_adapter = new Cart_Item_Adapter(Cart_Screen.this,itemCartModels);
-                gridView.setAdapter(cart_grid_adapter);
+                Cart_Item_Adapter cart_grid_adapter = new Cart_Item_Adapter(Cart_Screen.this, itemCartModels);
+                binding.gridView.setAdapter(cart_grid_adapter);
                 cart_grid_adapter.notifyDataSetChanged();
 
-                if (cart_grid_adapter.isEmpty()){
+                if (cart_grid_adapter.isEmpty()) {
                     noCart.setVisibility(View.VISIBLE);
-                    order_now.setVisibility(View.VISIBLE);
-                    checkOut_cart.setVisibility(View.INVISIBLE);
+                    binding.orderNowBtn.setVisibility(View.VISIBLE);
+                    binding.checkOutBtn.setVisibility(View.INVISIBLE);
                 } else {
-                    checkOut_cart.setVisibility(View.VISIBLE);
+                    binding.checkOutBtn.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -123,13 +106,13 @@ public class Cart_Screen extends AppCompatActivity {
 
     }
 
-    private void clearAll(){
-        Cart_Item_Adapter cart_grid_adapter = new Cart_Item_Adapter(Cart_Screen.this,itemCartModels);
+    private void clearAll() {
+        Cart_Item_Adapter cart_grid_adapter = new Cart_Item_Adapter(Cart_Screen.this, itemCartModels);
 
         if (itemCartModels != null) {
             itemCartModels.clear();
 
-            if (cart_grid_adapter != null){
+            if (cart_grid_adapter != null) {
                 cart_grid_adapter.notifyDataSetChanged();
             }
         }
@@ -160,7 +143,7 @@ public class Cart_Screen extends AppCompatActivity {
                     num_sum = num_sum + total_cart_num;
                     globalProductNum[0] = num_sum;
                 }
-                SharedPreferences sharedPreferences = getSharedPreferences("cartData",MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("cartData", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("total cart price", String.valueOf(globalPriceSum[0]));
                 editor.putString("cart product num", String.valueOf(globalProductNum[0]));

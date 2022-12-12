@@ -14,31 +14,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.Fashion_Store.databinding.ActivityCheckOutScreenBinding;
+import com.example.Fashion_Store.databinding.FragmentCheckOutCompletedScreenBinding;
+
 public class CheckOut_Completed_Screen extends Fragment {
 
-    private TextView order_ID;
-    private Button home_completed;
+    private FragmentCheckOutCompletedScreenBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_check_out_completed_screen, container, false);
-
-        order_ID = view.findViewById(R.id.order_id);
-        home_completed = view.findViewById(R.id.home_completed);
+        binding = FragmentCheckOutCompletedScreenBinding.inflate(getLayoutInflater(), container, false);
 
         SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("orderID",MODE_PRIVATE);
-        order_ID.setText(sharedPreferences1.getString("orderID",""));
+        binding.orderIdTxt.setText(sharedPreferences1.getString("orderID",""));
 
-        home_completed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-                getActivity().finish();
-            }
+        binding.homeBtn.setOnClickListener(view1 -> {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
         });
 
-        return view;
+        return binding.getRoot();
     }
 }

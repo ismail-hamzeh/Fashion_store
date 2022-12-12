@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.Fashion_Store.Models.Notification_Item_Model;
+import com.example.Fashion_Store.databinding.FragmentCheckOutPaymentScreenBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,10 +32,7 @@ import java.util.Map;
 
 public class CheckOut_Payment_Screen extends Fragment {
 
-    private RadioGroup rg_delivery;
-    private RadioButton card_radio, cash_radio, door_radio, pickUp_radio;
-    private TextView price_payment,payment_method_txt, delivery_method_txt;
-    private Button payment_btn;
+    private FragmentCheckOutPaymentScreenBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -44,17 +42,8 @@ public class CheckOut_Payment_Screen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_check_out_payment__screen, container, false);
+        binding = FragmentCheckOutPaymentScreenBinding.inflate(getLayoutInflater(), container, false);
 
-        rg_delivery = view.findViewById(R.id.rg_delivery_payment);
-        card_radio = view.findViewById(R.id.card_radio);
-        cash_radio = view.findViewById(R.id.cash_radio);
-        door_radio = view.findViewById(R.id.door_radio_payment);
-        pickUp_radio = view.findViewById(R.id.pickUp_radio_payment);
-        price_payment = view.findViewById(R.id.price_payment);
-        payment_method_txt = view.findViewById(R.id.payment_method_txt);
-        delivery_method_txt = view.findViewById(R.id.delivery_method_txt2);
-        payment_btn = view.findViewById(R.id.payment_payment);
         mAuth = FirebaseAuth.getInstance();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("buyNowOrCart",MODE_PRIVATE);
@@ -70,28 +59,24 @@ public class CheckOut_Payment_Screen extends Fragment {
         boolean door_rb = sharedPreferences2.getBoolean("door method",true);
 
         if (door_rb){
-            door_radio.setChecked(true);
+            binding.doorRb.setChecked(true);
         } else {
-            pickUp_radio.setChecked(true
-            );
+            binding.pickUpRb.setChecked(true);
         }
 
 
-        payment_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!cash_radio.isChecked() && !card_radio.isChecked()){
-                    payment_method_txt.setError("Required");
-                } else if (!door_radio.isChecked() && !pickUp_radio.isChecked()){
-                    delivery_method_txt.setError("Required");
-                } else {
-                    orderData();
-                }
+        binding.proceedToPaymentBtn.setOnClickListener((View.OnClickListener) view -> {
+            if (!binding.cashRb.isChecked() && !binding.cardRb.isChecked()){
+                binding.paymentMethodTxt.setError("Required");
+            } else if (!binding.doorRb.isChecked() && !binding.pickUpRb.isChecked()){
+                binding.deliveryMethodTxt.setError("Required");
+            } else {
+                orderData();
             }
         });
 
 
-        return view;
+        return binding.getRoot();
     }
     public void getOneItemData(){
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("orderDetails",MODE_PRIVATE);
@@ -99,17 +84,17 @@ public class CheckOut_Payment_Screen extends Fragment {
         productNum = sharedPreferences.getInt("product num",0);
 
         int total_price = Integer.parseInt(itemPrice) * productNum;
-        price_payment.setText(String.valueOf(total_price));
+        binding.priceTxt.setText(String.valueOf(total_price));
         SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("deliveryShared", MODE_PRIVATE);
 
-        price_payment.setText(sharedPreferences1.getString("total price", ""));
+        binding.priceTxt.setText(sharedPreferences1.getString("total price", ""));
     }
 
     public void getCartData(){
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("cartData",MODE_PRIVATE);
         productNum = Integer.parseInt(sharedPreferences.getString("cart product num",""));
 
-        price_payment.setText(sharedPreferences.getString("total cart price",""));
+        binding.priceTxt.setText(sharedPreferences.getString("total cart price",""));
 
     }
 
@@ -123,11 +108,11 @@ public class CheckOut_Payment_Screen extends Fragment {
         order.put("location", sharedPreferences.getString("address delivery",""));
         order.put("number", sharedPreferences.getString("number delivery",""));
         order.put("product num", String.valueOf(productNum));
-        order.put("total price", price_payment.getText().toString());
-        order.put("card", card_radio.isChecked());
-        order.put("cash", cash_radio.isChecked());
-        order.put("door delivery", door_radio.isChecked());
-        order.put("pickUp", pickUp_radio.isChecked());
+        order.put("total price", binding.priceTxt.getText().toString());
+        order.put("card", binding.cardRb.isChecked());
+        order.put("cash", binding.cashRb.isChecked());
+        order.put("door delivery", binding.doorRb.isChecked());
+        order.put("pickUp", binding.pickUpRb.isChecked());
         String id = db.collection("Users").document(userID).collection("Orders").document().getId();
         order.put("order id", id);
 

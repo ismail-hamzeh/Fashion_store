@@ -7,7 +7,7 @@
     tools:context=".All_Screen">
 
     <ImageView
-        android:id="@+id/back_all"
+        android:id="@+id/back_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
@@ -19,13 +19,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_toEndOf="@id/back_all"
+        android:layout_toEndOf="@id/back_img"
         android:text="All"
         android:textColor="@color/light_blue"
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/cart_all"
+        android:id="@+id/cart_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -34,10 +34,10 @@
         android:src="@drawable/shopping_cart" />
 
     <GridView
-        android:id="@+id/grid_all"
+        android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/back_all"
+        android:layout_below="@id/back_img"
         android:layout_marginBottom="20dp"
         android:numColumns="2" />
 

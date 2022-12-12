@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.Fashion_Store.R;
 import com.example.Fashion_Store.Adapters.ViewPager_Category_Adapter;
 import com.example.Fashion_Store.Models.ViewPager_Category_Model;
+import com.example.Fashion_Store.databinding.FragmentMenTabBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +30,7 @@ public class Men_Tab extends Fragment {
        return men_tab;
    }
 
-    private ViewPager viewPager;
+   private FragmentMenTabBinding binding;
     private ViewPager_Category_Adapter viewPager_category_adapter;
     ArrayList<ViewPager_Category_Model> imageList = new ArrayList<>();
     private DatabaseReference reference;
@@ -38,17 +39,16 @@ public class Men_Tab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_men__tab, container, false);
+        binding = FragmentMenTabBinding.inflate(getLayoutInflater(), container, false);
 
-        viewPager = view.findViewById(R.id.viewPager_men);
         reference = FirebaseDatabase.getInstance().getReference();
 
         clearAll();
-        getDataDB();
+        getDataFromDB();
 
-        return view;
+        return binding.getRoot();
     }
-    public void getDataDB() {
+    public void getDataFromDB() {
         reference.child("men").limitToFirst(3).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -62,8 +62,8 @@ public class Men_Tab extends Fragment {
                 }
                 imageList = new ArrayList<>(imageList);
                 viewPager_category_adapter = new ViewPager_Category_Adapter(imageList, getContext());
-                viewPager.setAdapter(viewPager_category_adapter);
-                viewPager.setPadding(0, 0, 600, 0);
+                binding.viewPager.setAdapter(viewPager_category_adapter);
+                binding.viewPager.setPadding(0, 0, 600, 0);
             }
 
             @Override

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.Fashion_Store.Adapters.Items_Grid_Adapter;
 import com.example.Fashion_Store.Models.Items_Model;
+import com.example.Fashion_Store.databinding.ActivityKidsScreenBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,8 +22,7 @@ import java.util.ArrayList;
 
 public class Kids_Screen extends AppCompatActivity {
 
-    private ImageView back_kids, cart_kids;
-    private GridView gridView;
+    private ActivityKidsScreenBinding binding;
     private Items_Grid_Adapter items_grid_adapter;
     ArrayList<Items_Model> items_models = new ArrayList<>();
     private DatabaseReference reference;
@@ -30,29 +30,17 @@ public class Kids_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kids_screen);
+        binding = ActivityKidsScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        back_kids = findViewById(R.id.back_kids);
-        cart_kids = findViewById(R.id.cart_kids);
-        gridView = findViewById(R.id.grid_kids);
         reference = FirebaseDatabase.getInstance().getReference();
 
         getItemsFromDB();
 
 
-        back_kids.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener((View.OnClickListener) view -> onBackPressed());
 
-        cart_kids.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Kids_Screen.this, Cart_Screen.class));
-            }
-        });
+        binding.cartImg.setOnClickListener(view -> startActivity(new Intent(Kids_Screen.this, Cart_Screen.class)));
 
     }
 
@@ -76,7 +64,7 @@ public class Kids_Screen extends AppCompatActivity {
                 }
                 items_models = new ArrayList<>(items_models);
                 items_grid_adapter = new Items_Grid_Adapter(Kids_Screen.this,items_models);
-                gridView.setAdapter(items_grid_adapter);
+                binding.gridView.setAdapter(items_grid_adapter);
 
             }
 

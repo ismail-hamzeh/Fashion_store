@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.Fashion_Store.databinding.FragmentLoginScreenBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,74 +23,61 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Login_Screen extends Fragment {
 
-  public static Login_Screen getInstance(){
-      Login_Screen login_screen = new Login_Screen();
-      return login_screen;
-  }
+    public static Login_Screen getInstance() {
+        Login_Screen login_screen = new Login_Screen();
+        return login_screen;
+    }
 
-  private EditText email_login, password_login;
-  private TextView forge_pass;
-  private Button login_btn;
-  private FirebaseAuth mAuth;
+    private FragmentLoginScreenBinding binding;
+    private FirebaseAuth mAuth;
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-      View view = inflater.inflate(R.layout.fragment_login__screen, container, false);
+        binding = FragmentLoginScreenBinding.inflate(getLayoutInflater(), container, false);
 
-      email_login = view.findViewById(R.id.email_login);
-      password_login = view.findViewById(R.id.password_login);
-      forge_pass = view.findViewById(R.id.forget_pass);
-      login_btn = view.findViewById(R.id.login_btn);
-      mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-      forge_pass.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
+        binding.forgetPassTxt.setOnClickListener(view -> ((Login_SignUp_Container) getActivity()).get_ForgetPass_Email_Tab());
 
-              ((Login_SignUp_Container)getActivity()).get_ForgetPass_Email_Tab();
-
-          }
-      });
-
-      login_btn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              loginUser();
-          }
-      });
+        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginUser();
+            }
+        });
 
 
-      return view;
-  }
+        return binding.getRoot();
+    }
 
-  public void loginUser() {
+    public void loginUser() {
 
-      String email = email_login.getText().toString();
-      String password = password_login.getText().toString();
+        String email = binding.emailEdt.getText().toString();
+        String password = binding.passwordEdt.getText().toString();
 
-      if (email.isEmpty()) {
-          email_login.setError("Required");
-      } else if (password.isEmpty()) {
-          password_login.setError("Required");
-      } else {
+        if (email.isEmpty()) {
+            binding.emailEdt.setError("Required");
+        } else if (password.isEmpty()) {
+            binding.passwordEdt.setError("Required");
+        } else {
 
-          mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull Task<AuthResult> task) {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                  if (task.isSuccessful()){
-                      startActivity(new Intent(getActivity(), MainActivity.class));
-                      getActivity().finish();
-                  } else {
-                      Toast.makeText(getActivity(), "Error!! "+ task.getException(), Toast.LENGTH_SHORT).show();
-                  }
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(getActivity(), MainActivity.class));
+                        getActivity().finish();
+                    } else {
+                        Toast.makeText(getActivity(), "Error!! " + task.getException(), Toast.LENGTH_SHORT).show();
+                    }
 
-              }
-          });
+                }
+            });
 
-      }
-  }
+        }
+    }
 
 }
